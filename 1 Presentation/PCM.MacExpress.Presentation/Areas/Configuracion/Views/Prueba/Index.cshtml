@@ -1,0 +1,35 @@
+﻿@*@model PCM.MacExpress.Presentation.Core.ViewModel.CreatePlayerViewModel*@
+@model PCM.MacExpress.Presentation.Core.ViewModel.EntidadModels
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<h2>Index</h2>
+
+@*@using (Html.BeginForm("Index", "Prueba", new { area = "Configuracion" }, FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(i => i.Teams, new { @class = "control-label col-md-3", multiple = "multiple" })
+
+            <div class="col-md-9">
+                @Html.ListBoxFor(i => Model.TeamIds, Model.Teams, new { @class = "form-control" })
+                @Html.ValidationMessageFor(i => i.Teams, "", new { @class = "text-warning" })
+            </div>
+        </div>
+
+    }*@
+
+@using (Html.BeginForm("Index", "Prueba", new { area = "Configuracion" }, FormMethod.Post, new { @class = "form-horizontal", id = "formulario01" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.DropDownListFor(m => m.ID_ENTIDAD, Model.GetEntidadList.Select(x => new SelectListItem { Text = x.NOMBRE, Value = x.ID_ENTIDAD.ToString() }), new { @class = "form-control", @multiple = "true" })
+    @Html.DropDownListFor(model => model.SelectedValues, new MultiSelectList(Model.GetEntidadList, "ID_ENTIDAD", "NOMBRE"), "Select Category", new { @class = "chzn-select form-control", multiple = "multiple" })
+}
+
+<script>
+
+
+</script>

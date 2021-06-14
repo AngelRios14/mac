@@ -1,0 +1,183 @@
+@model PCM.MacExpress.Presentation.Core.ViewModel.UsuarioModels
+
+@Html.AntiForgeryToken()
+<form id="modalUsuario" action="@Url.Action("nuevaUsuario", "AdminUsuario", new {area = "Configuracion"})" method="post">
+    <div class="form-horizontal">
+
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.DNI, new { @class = "control-label" })
+            </div>
+            <div class="col-md-9">
+                <div class="form-inline">
+                    @Html.TextBoxFor(m => m.DNI, new { @class = "form-control input-sm validate[required, custom[onlyNumberSp]]", id = "DNI_NUEVO", data_val = "true", maxlength = 8, placeholder = "Buscar DNI" })
+                    &nbsp;
+                    <i id="btnBuscarDniExterna" class="fas fa-search" aria-hidden="true" style="cursor: pointer;" title="Buscar"></i>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.NOMBRE, new { @class = "control-label" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.NOMBRE, new { @class = "form-control input-sm", id = "NOMBRE_NUEVO", maxlength = 150, @readonly = "readonly" })
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.APELLIDO_PATERNO, new { @class = "control-label" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.APELLIDO_PATERNO, new { @class = "form-control input-sm", id = "APELLIDO_PATERNO_NUEVO", maxlength = 150, @readonly = "readonly" })
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.APELLIDO_MATERNO, new { @class = "control-label" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.APELLIDO_MATERNO, new { @class = "form-control input-sm", id = "APELLIDO_MATERNO_NUEVO", maxlength = 150, @readonly = "readonly" })
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.TIPO_USUARIO, new { @class = "control-label" })
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(m => m.TIPO_USUARIO, ViewBag.LST_TIPO_USUARIO as SelectList, "Seleccione", new { @class = "form-control validate[required]", id = "TIPO_USUARIO_NUEVO", data_val = "true", data_val_required = "El campo es obligatorio" })
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.USUARIO, new { @class = "control-label" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.USUARIO, new { @class = "form-control input-sm validate[required,custom[onlyLetterNumber]]", id = "USUARIO_NUEVO", data_val = "true", data_val_required = "El campo es obligatorio", maxlength = 50 })
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+                <div class="col-md-2">
+                    @Html.LabelFor(m => m.PASSWORD, new { @class = "control-label" })
+                </div>
+                <div class="col-md-9">
+                    @Html.TextBoxFor(m => m.PASSWORD, new { @class = "form-control input-sm validate[required]", id = "PASSWORD_NUEVO", data_val = "true", data_val_required = "El campo es obligatorio", maxlength = 20 })
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.FECHA_CADUCA, new { @class = "control-label" })
+            </div>
+            <div class="col-md-9">
+                <div class='input-group'>
+                    @Html.TextBoxFor(m => m.FECHA_CADUCA, new { @class = "form-control input-sm validate[required]", id = "FECHA_CADUCA_NUEVO", data_val = "true", data_val_required = "El campo es obligatorio", maxlength = 10 })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.ID_ENTIDAD, new { @class = "control-label" })
+                @Html.HiddenFor(m => m.ID_USUARIO, new { id = "ID_USUARIO_NUEVO" })
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(m => m.ID_ENTIDAD, ViewBag.LST_ENTIDAD_USUARIO as SelectList, "Seleccione", new { @class = "form-control", id = "ID_ENTIDAD_USUARIO_NUEVO" })
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.ID_SEDE, new { @class = "control-label" })
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(m => m.ID_SEDE, ViewBag.LST_SEDE_USUARIO as SelectList, "Seleccione", new { @class = "form-control", id = "ID_SEDE_USUARIO_NUEVO" })
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.ESTADO_VIGENCIA, new { @class = "control-label" })
+                @Html.HiddenFor(m => m.ESTADO_VIGENCIA, new { id = "ESTADO_VIGENCIA_NUEVO" })
+            </div>
+            <div class="col-md-9">
+                @*@Html.TextBoxFor(m => m.ESTADO, new { @class = "form-control input-sm validate[required]", id = "ESTADO_NUEVO", data_val = "true", data_val_required = "El campo es obligatorio" })*@
+                <div>
+                    <label class="radio-inline"><input type="radio" id="rdESTADO_NUEVO_1" name="rdESTADO_NUEVO" value="1" /> Activo</label>
+                    <label class="radio-inline"><input type="radio" id="rdESTADO_NUEVO_0" name="rdESTADO_NUEVO" value="2" /> Desactivo</label>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <span class="input-group-btn">
+                        <a id="btnGuardarUsuario" class="btn btn-sucess btn-sm"
+                           @*href="@Url.Action("Index", "AdminUsuario", new { area = "Configuracion", wpv = "1"})" *@
+                           title="Guardar Usuario">
+                            <i class="glyphicon glyphicon-floppy-disk"></i> Guardar
+                        </a>
+                        <input type="text" aria-label="" style="border: 0; margin: 5px;">
+                        <a id="btnRegresarUsuario" class="btn btn-gris btn-sm"
+                           href="@Url.Action("Index", "AdminUsuario", new { area = "Configuracion", wpv = "2"})"
+                           title="Cancelar y volver a la pantalla anterior">
+                            <span class="glyphicon glyphicon-log-out"></span> Regresar
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@using (Html.BeginForm("Index", "AdminUsuario", new { area = "Configuracion" }, 
+    FormMethod.Post, new { id = "FormularioGuardarUsuario" })) { }
+
+<link href="~/Content/validationEngine.jquery.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery.validationEngine.js"></script>
+<script src="~/Scripts/jquery.validationEngine-en.js"></script>
+
+<script src="~/Scripts/jquery.filter_input.js"></script>
+<script src="~/Scripts/Negocio/AdminUsuario.js"></script>
+<script src="~/Scripts/Negocio/utilitario.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#ID_ENTIDAD_USUARIO_NUEVO').prop("disabled", true);
+        $('#ID_SEDE_USUARIO_NUEVO').prop("disabled", true);
+
+        $('#ID_ENTIDAD_USUARIO_NUEVO').removeAttr('data-val-number');
+        $('#ID_SEDE_USUARIO_NUEVO').removeAttr('data-val-number');
+
+        $("#modalUsuario").validationEngine();
+
+        if ('@Model.ESTADO_VIGENCIA' == '0' || '@Model.ESTADO_VIGENCIA' == '1') {
+            $("#rdESTADO_NUEVO_1").prop('checked', true);
+            $('#ESTADO_VIGENCIA_NUEVO').val('1');
+        }
+        else if ('@Model.ESTADO_VIGENCIA' == '2')
+            $("#rdESTADO_NUEVO_0").prop('checked', true);
+
+
+        if ('@Model.ID_ENTIDAD' != '') {
+            $('#ID_ENTIDAD_USUARIO_NUEVO').prop("disabled", false);            
+            $('#ID_ENTIDAD_USUARIO_NUEVO').addClass('validate[required]');
+
+            $('#ID_SEDE_USUARIO_NUEVO').prop("disabled", false);            
+            $('#ID_SEDE_USUARIO_NUEVO').addClass('validate[required]');
+        }        
+    });
+
+</script>

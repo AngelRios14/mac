@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{50DC4C1D-F751-40D5-B159-AA8D1B9C3E01}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PCM.Servicio.Domain</RootNamespace>
+    <AssemblyName>PCM.Servicio.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Implementation\BLAtencion.cs" />
+    <Compile Include="Implementation\BLEntidad.cs" />
+    <Compile Include="Implementation\BLOperacion.cs" />
+    <Compile Include="Implementation\BLParametro.cs" />
+    <Compile Include="Implementation\BLSede.cs" />
+    <Compile Include="Implementation\BLServicio.cs" />
+    <Compile Include="Implementation\BLUsuario.cs" />
+    <Compile Include="Interface\IBLAtencion.cs" />
+    <Compile Include="Interface\IBLEntidad.cs" />
+    <Compile Include="Interface\IBLOperacion.cs" />
+    <Compile Include="Interface\IBLParametro.cs" />
+    <Compile Include="Interface\IBLSede.cs" />
+    <Compile Include="Interface\IBLServicio.cs" />
+    <Compile Include="Interface\IBLUsuario.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\3 Transversal\PCM.MacExpress.Transversal\PCM.MacExpress.Transversal.csproj">
+      <Project>{A80E9A89-CD47-45C5-9076-63F43FECAB9C}</Project>
+      <Name>PCM.MacExpress.Transversal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PCM.Servicio.Entity\PCM.Servicio.Entity.csproj">
+      <Project>{E8B93A52-67B8-41AB-A942-33343FC6BC01}</Project>
+      <Name>PCM.Servicio.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PCM.Servicio.Infraestructure\PCM.Servicio.Infraestructure.csproj">
+      <Project>{35187043-785B-4A67-B84E-09F550670350}</Project>
+      <Name>PCM.Servicio.Infraestructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

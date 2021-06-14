@@ -1,0 +1,319 @@
+﻿@model PCM.MacExpress.Presentation.Core.ViewModel.ServicioModels
+
+@{
+    ViewBag.Titulo = "Administrar Servicio";
+    Layout = "~/Views/Shared/_LayoutPrincipalAtencion.cshtml";
+}
+<div class="card admin-panel">
+    <div style="margin-top: 0px;">
+        <div class="form-horizontal">
+            <div class="form-group" style="padding: 0px; margin: 0px;">
+                <div class="col-md-12 px-0">
+                    <h2 class="titulo-admin-panel"> @ViewBag.Titulo </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="formServicio" action="@Url.Action("Index", "AdminServicio", new {area = "Configuracion"})" method="post">
+        <div class="panel panel-default" style="margin-bottom: 10px;">
+            <div class="panel-heading">
+                <span>Ingrese parámetros de búsqueda</span>
+                @*<a data-toggle="collapse" href="#collapseDatosServicios">
+                        <span class="indicador glyphicon glyphicon-chevron-up" aria-hidden="true"></span>  Ingrese parámetros de búsqueda
+                    </a>*@
+            </div>
+
+            <div class="panel-body">
+                <div id="collapseDatosServicios" class="panel-collapse collapse in ">
+                    <div class="form-horizontals">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(m => m.TIPOSERVICIO, new { @class = "control-label" })
+                                @Html.HiddenFor(m => m.ID_SERVICIO)
+                                @Html.HiddenFor(m => m.intNumeroPaginaServicio)
+                                @Html.HiddenFor(m => m.intNumeroPaginaServicio)
+                                <input type="hidden" id="intNumeroPaginaOperacion" value="0" />
+                                @*@Html.TextBoxFor(m => m.TIPOSERVICIO, new { @class = "form-control input-sm validate[required]" })*@
+                                @Html.DropDownListFor(m => m.TIPOSERVICIO, ViewBag.LST_TIPOSERVICIO_SERVICIO as SelectList, "SELECCIONE", new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(m => m.ID_ENTIDAD, new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.ID_ENTIDAD, ViewBag.LST_ENTIDAD_SERVICIO as SelectList, "SELECCIONE", new { @class = "form-control" })
+                                @*@Html.TextBoxFor(m => m.ID_ENTIDAD, new { @class = "form-control input-sm validate[required]" })*@
+                            </div>
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(m => m.MODOSERVICIO, new { @class = "control-label" })
+                                @*@Html.TextBoxFor(m => m.MODOSERVICIO, new { @class = "form-control input-sm validate[required]" })*@
+                                @Html.DropDownListFor(m => m.MODOSERVICIO, ViewBag.LST_MODOSERVICIO as SelectList, "SELECCIONE", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(m => m.NOMBRE, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.NOMBRE, new { @class = "form-control input-sm validate[required]" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(m => m.LINK, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.LINK, new { @class = "form-control input-sm validate[required]" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(m => m.ESTADO_VIGENCIA, new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.ESTADO_VIGENCIA, ViewBag.LST_ESTADO_SERVICIO as SelectList, "Seleccione", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-horizontal">
+                    <div class="col-md-12 text-center">
+                        <button id="btnBuscarServicio" type="button" class="btn btn-sucess mr-1"><span class="glyphicon glyphicon-search"></span>  Buscar</button>
+                        <button id="btnNuevoServicio" type="button" class="btn btn-gris mr-1"><span class="glyphicon glyphicon-plus"></span>  Nuevo Servicio</button>
+                        <button id="btnAgregarOperacionServicio" type="button" class="btn btn-gris mr-1" title="Agregar Operación"><span class="glyphicon glyphicon-plus"></span>  Nuevo Operación</button>
+                        <button id="btnAgregarParametrosServicio" type="button" class="btn btn-gris mr-1" title="Agregar Parámetros"><span class="glyphicon glyphicon-plus"></span>  Nuevo Parámetro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span> Resultado de la búsqueda</span>
+                @*<a data-toggle="collapse" href="#collapseServicio">
+                        <span class="indicador glyphicon glyphicon-chevron-up" aria-hidden="true"></span>  Resultado de la búsqueda
+                    </a>*@
+            </div>
+
+            <div class="panel-body">
+                <div class="form-group small">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6" id="divCantidadRegistrosServicio"> Se encontraron(0) registros</div>
+
+                    </div>
+                </div>
+                <div id="collapseServicio" class="panel-collapse collapse in" >
+                    <table id="gvServicio" data-toggle="table" >
+                        <thead>
+                            <tr >
+                                <th data-field="ID_SERVICIO" data-formatter="gvServicioNro" data-width="2%" data-align="center" data-sortable="true"> N°</th>
+                                <th data-field="ENTIDAD" data-width="16%" data-sortable="true" data-halign="center" data-align="left">Entidad</th>
+                                <th data-field="TIPO_SERVICIO" data-width="13%" data-sortable="true" data-halign="center" data-align="left">Tipo Servicio</th>
+                                <th data-field="MODO_SERVICIO" data-width="13%" data-sortable="true" data-halign="center" data-align="left">Modo Servicio</th>
+                                <th data-field="TIPO_ACCESO" data-width="13%" data-sortable="true" data-halign="center" data-align="left">Tipo Acceso</th>
+                                <th data-field="NOMBRE" data-width="16%" data-sortable="true" data-halign="center" data-align="left">Nombre</th>
+                                @*<th data-field="LINK" data-width="16%" data-sortable="true" data-halign="center" data-align="left">Link</th>*@
+                                <th data-field="ESTADO_VIGENCIA" data-formatter="gvServicioEstado" data-width="3%" data-sortable="true" data-halign="center" data-align="right">Estado</th>
+                                <th data-field="ORDEN" data-width="3%" data-sortable="true" data-halign="center" data-align="right">Orden</th>
+                                <th data-formatter="operateFormatter_Servicio" data-events="operateEvents" data-width="5%" data-align="center" data-valign="middle"> &nbsp;&nbsp;</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    <div id="rowPaginadoServicio">
+
+                    </div>
+                </div>
+                <fieldset class="scheduler-border" style="display: none;" id="seccionOperacion">
+                    <legend class="scheduler-border">Operación</legend>
+
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <table id="gvOperacion" data-toggle="table">
+                            <thead>
+                                <tr>
+                                    <th data-field="ID_OPERACION" data-formatter="gvOperacionNro" data-width="2%" data-align="center" data-sortable="true"> N°</th>
+                                    <th data-field="SERVICIO" data-width="20%" data-halign="center" data-align="left" data-sortable="true">Servicio</th>
+                                    <th data-field="DESCRIPCION" data-width="35%" data-halign="center" data-align="left" data-sortable="true">Descripcion</th>
+                                    <th data-field="ACCION" data-width="35%" data-halign="center" data-align="left" data-sortable="true">Accion</th>
+                                    <th data-formatter="operateFormatter_Operacion" data-events="operateEvents" data-width="8%" data-align="center" data-valign="middle"> &nbsp;&nbsp;</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <div id="rowPaginadoOperacion">
+
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="scheduler-border" style="display: none;" id="seccionParametros">
+                    <legend class="scheduler-border">Parámetros</legend>
+
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <table id="gvParametro" class="table table-striped table-bordered table-hover table-condensed">
+                            <thead class="small">
+                                <tr class="text-center">
+                                    <th data-field="ID_PARAMETRO" data-formatter="gvParametroNro" data-width="2 %" data-align="center"> N°</th>
+                                    <th data-field="OPERACION" data-width="18%"> Operacion</th>
+                                    <th data-field="PARAMETRO" data-width="18%">Parametro</th>
+                                    <th data-field="ES_OBLIGATORIO" data-formatter="gvParametroEsObligatorio" data-width="18%">Es Obligatorio</th>
+                                    <th data-field="TIPO_PARAMETRO" data-formatter="gvParametroTipoParametro" data-width="18%">Tipo Parametro</th>
+                                    <th data-field="COMENTARIO" data-width="18%">Comentario</th>
+                                    <th data-formatter="operateFormatter_Parametro" data-events="operateEvents" data-width="8 %" data-align="center" data-valign="middle"> &nbsp;&nbsp;</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <div id="rowPaginadoParametro">
+
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </form>
+</div>
+@*<script src="~/Scripts/Table/bootstrap.js"></script>
+    <script src="~/Scripts/Table/bootstrap-table.1.10.min.js"></script>*@
+
+<link href="~/Content/Menu/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Menu/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+<link href="~/Content/bootstrap-table.1.10.min.css" rel="stylesheet" />
+<link href="~/Content/validationEngine.jquery.css" rel="stylesheet" />
+
+@*<script src="~/Scripts/Menu/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="~/Scripts/Menu/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/Scripts/Menu/bower_components/jquery/dist/bootstrap-dialog.min.js"></script>*@
+<script src="~/Scripts/Table/bootbox.min.js"></script>
+<script src="~/Scripts/jquery.filter_input.js"></script>
+
+<link href="~/Scripts/Table/bootstrap-table.min.css" rel="stylesheet" />
+<script src="~/Scripts/Table/bootstrap-table.min.js"></script>
+<script src="~/Scripts/Table/bootstrap-table-reorder-columns.min.js"></script>
+<script src="~/Scripts/Table/bootstrap-table-resizable.min.js"></script>
+<script src="~/Scripts/Negocio/AdminServicio.js"></script>
+
+<script>
+
+    $(document).ready(function ()
+    {
+        $('#btnAgregarOperacionServicio').prop("disabled", true);
+        $('#btnAgregarParametrosServicio').prop("disabled", true);
+
+        if (@ViewBag.wpv == 1) {
+            bootbox.alert("Datos Grabados", function() {
+                $("#btnBuscarServicio").trigger('click');
+            });
+
+            $('#TIPOSERVICIO').val('');
+            $('#ID_ENTIDAD').val('');
+            $('#MODOSERVICIO').val('');
+            $('#NOMBRE').val('');
+            $('#LINK').val('');
+        }
+
+        if (@ViewBag.wpv == 2) {
+            $("#btnBuscarServicio").trigger('click');
+        }
+    });
+
+    var selectedServicioRow = {};
+    var selectedOperacionRow = {};
+
+    $('#gvServicio').on('click-row.bs.table', function (e, row, $element) {
+        selectedServicioRow = row;
+        selectedOperacionRow = {};
+
+        $('#seccionOperacion').css('display', 'none');
+        $('#seccionParametros').css('display', 'none');
+
+        $('#btnAgregarParametrosServicio').prop("disabled", true);
+        $('#btnAgregarOperacionServicio').prop("disabled", true);
+
+        $('#gvParametro').bootstrapTable('removeAll');
+        $('#gvOperacion').bootstrapTable('removeAll');
+
+        if (row.ID_MODOSERVICIO == 2)
+        {
+            $('#seccionOperacion').css('display', 'block');
+            $('#seccionParametros').css('display', 'block');
+
+            $('#btnAgregarOperacionServicio').prop("disabled", false);
+            Obtener_Operacion(1, 0);
+        }
+
+        $('.active').removeClass('active selected')
+        $($element).addClass('active selected')
+    });
+
+    $('#gvOperacion').on('click-row.bs.table', function (e, row, $element) {
+        selectedOperacionRow = row;
+
+        $('#btnAgregarParametrosServicio').prop("disabled", true);
+        $('#gvParametro').bootstrapTable('removeAll');
+
+        $('#btnAgregarParametrosServicio').prop("disabled", false);
+        Obtener_Parametro(1, 0);
+
+        $('.active').removeClass('active selected')
+        $($element).addClass('active selected')
+    });
+
+</script>
+
+<style>
+
+    fieldset.scheduler-border {
+        border: 1px groove #ddd !important;
+        padding: 0 1em 0.3em 1em !important;
+        margin: 0 0 0.5em 0 !important;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+    }
+
+    legend.scheduler-border {
+        font-size: 1em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        margin-bottom: 10px;
+    }
+
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333333;
+        background-color: #fff;
+    }
+
+    .panel-heading {
+        color: #333 !important;
+        background-color: #E3E6E8 !important;
+        font-weight: bold;
+    }
+
+    .control-label {
+        color: #555;
+        font-size: 14px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        padding: 7px 0px 0px 0px;
+    }
+
+    .input .form-control, select.form-control {
+        color: #444;
+        font-size: 12px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        padding: 6px 12px 6px 12px;
+    }
+
+        select.form-control:not([size]):not([multiple]) {
+            height: calc(2.25rem + 10px);
+        }
+
+    div.th-inner {
+        color: #333333;
+        font-size: 11.9px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        padding: 8px;
+    }
+
+    /*.table td, .table th {
+        padding: .4rem !important;
+        font-size: 1.2rem !important;
+    }*/
+
+    .fixed-table-container {
+        border: 0;
+    }
+
+</style>

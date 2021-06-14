@@ -1,0 +1,35 @@
+﻿@model PCM.MacExpress.Presentation.Core.ViewModel.AtencionModels
+
+@{
+    ViewBag.Titulo = "Atención al Ciudadano";
+    Layout = "~/Views/Shared/_LayoutPrincipalAtencion.cshtml";
+}
+<div class="card">
+
+    <div class="row p-0 m-0"><h1 class="titulo-admin-panel">Atención al Ciudadano</h1></div>
+    <div class="card-body">
+        <form id="formIdentificacionCiudadano" action="@Url.Action("Index", "AtenderCiudadano", new {area = "AtencionCiudadano"})" method="post">
+
+            <div class="panel-body">
+                <div id="divCabecera"></div>
+                <div id="divContenedor"></div>
+                <div class="form-horizontal"></div>
+            </div>
+        </form>
+
+        @using (Html.BeginForm("Index", "Servicios", new { area = "AtencionCiudadano" }, FormMethod.Post, new { id = "FormularioAtenderCiudadano" })) { }
+    </div>
+</div>
+<script src="~/Scripts/Negocio/AtenderCiudadano.js"></script>
+
+<script>
+    $(document).ready(function () {        
+        fnListarControlesAtencion(@ViewBag.wpv);
+    });
+</script>
+
+<style>
+    footer {
+        padding: .9em;
+    }
+</style>

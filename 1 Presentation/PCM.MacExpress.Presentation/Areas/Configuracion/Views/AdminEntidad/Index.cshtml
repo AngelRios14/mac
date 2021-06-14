@@ -1,0 +1,197 @@
+﻿@model PCM.MacExpress.Presentation.Core.ViewModel.EntidadModels
+
+@{
+    ViewBag.Titulo = "Administrar Entidad";    
+    Layout = "~/Views/Shared/_LayoutPrincipalAtencion.cshtml";
+}
+<div class="card admin-panel">
+    <div style="margin-top: 0px;">
+        <div class="form-horizontal">
+            <div class="form-group" style="padding: 0px; margin: 0px;">
+                <div class="col-md-12 px-0">
+                    <h2 class="titulo-admin-panel"> @ViewBag.Titulo </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="formEntidad" action="@Url.Action("Index", "AdminEntidad", new {area = "Configuracion"})" method="post">
+        <div class="panel panel-default" style="margin-bottom: 10px;">
+            <div class="panel-heading">
+                <span> Ingrese parámetros de búsqueda</span>
+                @*<a data-toggle="collapse" href="#collapseDatos">
+                        <span class="indicador glyphicon glyphicon-chevron-up" aria-hidden="true"></span>  Ingrese parámetros de búsqueda
+                    </a>*@
+            </div>
+
+            <div class="panel-body">
+                <div id="collapseDatos" class="panel-collapse collapse in ">
+                    <div class="form-horizontals">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(m => m.NOMBRE, new { @class = "control-label" })
+                                @Html.HiddenFor(m => m.ID_ENTIDAD)
+                                @Html.HiddenFor(m => m.intNumeroPaginaEntidad)
+                                @Html.TextBoxFor(m => m.NOMBRE, new { @class = "form-control input-sm validate[required]", maxlength = "150" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(m => m.RUC, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.RUC, new { @class = "form-control input-sm validate[required]", maxlength = "11" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(m => m.ORDEN, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.ORDEN, new { @class = "form-control input-sm validate[required]", maxlength = "5" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-horizontal">
+                    <div class="col-md-12 text-center">
+                        <button id="btnBuscarEntidad" type="button" class="btn btn-sucess"><span class="glyphicon glyphicon-search"></span>  Buscar</button>
+                        <button id="btnNuevoEntidad" type="button" class="btn btn-gris"><span class="glyphicon glyphicon-plus"></span>  Nuevo Entidad</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span> Resultado de la búsqueda</span>
+                @*<a data-toggle="collapse" href="#collapseEntidad">
+                        <span class="indicador glyphicon glyphicon-chevron-up" aria-hidden="true"></span>  Resultado de la búsqueda
+                    </a>*@
+            </div>
+
+            <div class="panel-body">
+                <div class="form-group small">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6" id="divCantidadRegistrosEntidad"> Se encontraron(0) registros</div>
+
+                    </div>
+                </div>
+                <div id="collapseEntidad" class="panel-collapse collapse in">
+                    <table id="gvEntidad" class="table table-striped table-bordered table-hover table-condensed">
+                        <thead class="small">
+                            <tr class="text-center">
+                                @*<th data-checkbox="true" class="col-md-1"></th>*@
+                                <th data-field="ID_ENTIDAD" data-formatter="gvEntidadNro" data-width="2 %" data-align="center" data-valign="middle"> N°</th>
+                                <th data-field="NOMBRE" data-width="30%" sort="true" data-valign="middle">Nombre</th>
+                                <th data-field="RUC" data-width="30%" data-valign="middle">Ruc</th>
+                                <th data-field="ORDEN" data-width="30%" data-valign="middle">Orden</th>
+                                <th data-formatter="operateFormatter_Entidad" data-events="operateEvents" data-width="8 %" data-align="center" data-valign="middle"> &nbsp;&nbsp;</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div id="rowPaginadoEntidad">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<link href="~/Content/Menu/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Menu/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+<link href="~/Content/bootstrap-table.1.10.min.css" rel="stylesheet" />
+<link href="~/Content/validationEngine.jquery.css" rel="stylesheet" />
+
+<script src="~/Scripts/Menu/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="~/Scripts/Menu/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/Scripts/Menu/bower_components/jquery/dist/bootstrap-dialog.min.js"></script>
+<script src="~/Scripts/Table/bootbox.min.js"></script>
+<script src="~/Scripts/jquery.filter_input.js"></script>
+
+<script src="~/Scripts/Table/bootstrap.js"></script>
+<script src="~/Scripts/Table/bootstrap-table.1.10.min.js"></script>
+<script src="~/Scripts/Negocio/AdminEntidad.js"></script>
+
+<style>
+
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333333;
+        background-color: #fff;
+    }
+
+    .panel-heading {
+        color: #333 !important;
+        background-color: #E3E6E8 !important;
+        font-weight: bold;
+    }
+
+    .control-label {
+        color: #555;
+        font-size: 14px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        padding: 7px 0px 0px 0px;
+    }
+
+    .input .form-control, select.form-control {
+        color: #444;
+        font-size: 12px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        padding: 6px 12px 6px 12px;
+    }
+
+        select.form-control:not([size]):not([multiple]) {
+            height: calc(2.25rem + 10px);
+        }
+
+    div.th-inner {
+        color: #333333;
+        font-size: 11.9px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        padding: 8px;
+    }
+
+    /*.table td, .table th {
+        padding: .4rem !important;
+        font-size: 1.2rem !important;
+    }*/
+
+    .fixed-table-container {
+        border: 0;
+    }
+
+</style>
+
+<script>
+
+    $(document).ready(function () {
+
+        if (@ViewBag.wpv == 1) {
+            bootbox.alert("Datos Grabados", function () {
+                $("#btnBuscarEntidad").trigger('click');
+            });
+        }
+
+        if (@ViewBag.wpv == 2) {
+            $("#btnBuscarEntidad").trigger('click');
+        }
+
+        $("#gvEntidad").bootstrapTable({
+            classes: 'table table-hover',
+            cache: false,
+            search: false,
+            showToggle: false,
+            showColumns: false,
+        }).bootstrapTable('resetView');
+
+        //    classes: 'table table-hover',
+        //  height: 370,
+        //    cache: true,
+        //    search: false,
+        //    pagination: false,
+        //    showHeader: true,
+        //    showToggle: true,
+        //    showFullscreen: false,
+        //    cardView: false,
+        //}).bootstrapTable('resetView');
+    });
+
+</script>

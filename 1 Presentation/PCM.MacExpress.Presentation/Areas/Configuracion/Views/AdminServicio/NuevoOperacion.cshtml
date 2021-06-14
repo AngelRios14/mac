@@ -1,0 +1,60 @@
+﻿@model PCM.MacExpress.Presentation.Core.ViewModel.OperacionModels
+
+@Html.AntiForgeryToken()
+<form id="modalOperacion" action="@Url.Action("nuevaOperacion", "AdminEntidad", new {area = "Configuracion"})" method="post">
+    <div class="form-horizontal">
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.SERVICIO, new { @class = "control-label" })
+                @Html.HiddenFor(m => m.ID_OPERACION, new { id = "ID_OPERACION_NUEVO" })
+                @Html.HiddenFor(m => m.ID_SERVICIO, new { id = "ID_SERVICIO_OPERACION_NUEVO" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.SERVICIO, new { @class = "form-control input-sm", data_val = "true", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.DESCRIPCION, new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.DESCRIPCION, new { @class = "form-control input-sm validate[required]", id = "DESCRIPCION_NUEVO", data_val = "true", data_val_required = "El campo es obligatorio", maxlength = "200" })
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.ACCION, new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.ACCION, new { @class = "form-control input-sm validate[required]", id = "ACCION_NUEVO", data_val = "true", data_val_required = "El campo es obligatorio", maxlength = "400" })
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <span class="input-group-btn">
+                        <a id="btnGuardarOperacion" class="btn btn-gris btn-sm"
+                           @*href="@Url.Action("Index", "AdminEntidad", new { area = "Configuracion", wpv = "1"})" *@
+                           title="Guardar Operacion">
+                            <i class="glyphicon glyphicon-floppy-disk"></i> Guardar
+                        </a>
+                        <input type="text" aria-label="" style="border: 0; margin: 5px;">
+                        <a id="btnRegresarOperacion" class="btn btn-gris btn-sm"
+                           href="@Url.Action("Index", "AdminServicio", new { area = "Configuracion", wpv = "2"})"
+                           title="Cancelar y volver a la pantalla anterior">
+                            <span class="glyphicon glyphicon-log-out"></span> Regresar
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@using (Html.BeginForm("Index", "AdminServicio", new { area = "Configuracion" }, FormMethod.Post, new { id = "FormularioGuardarOperacion" })) { }
+
+<script src="~/Scripts/Negocio/utilitario.js"></script>
+<script src="~/Scripts/jquery.validationEngine.js"></script>
+<script src="~/Scripts/jquery.validationEngine-en.js"></script>
+<link href="~/Content/validationEngine.jquery.css" rel="stylesheet" />
+<script src="~/Scripts/Negocio/AdminServicio.js"></script>

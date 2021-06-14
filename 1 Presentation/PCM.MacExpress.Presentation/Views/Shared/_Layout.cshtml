@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MAC EXPRESS</title>
+    <link rel="stylesheet" href="~/Content/fontawesome-all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Content/libro-reclamaciones.css">
+    <link rel="stylesheet" href="~/Content/fuentes/fuentes-personalizadas.css" />
+    <!-- Google Font: Source Sans Pro -->
+    @*<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">*@
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/jquery")
+</head>
+
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-light border-bottom">
+            <div class="container" style="margin: 0px 10px 0px 10px;">
+                <a class="navbar-reclamaciones">
+                    <div class="contenedor-escudo-reclamaciones">
+                        <img src="~/Content/svg/escudo-svg.svg" class="escudo-reclamaciones">
+                    </div>
+                    <div class="contenedor-gob-pe-reclamaciones">
+                        <img src="~/Content/svg/logo-gobpe.svg" class="gob-pe-reclamaciones">
+                    </div>
+                    <div class="separador-reclamaciones d-none d-lg-inline">
+                        <img src="~/Content/svg/logo-texto.svg" class="texto-logo-reclamaciones">
+                    </div>
+                </a>
+                <!--<ul class="navbar-nav ml-auto">
+                    Messages Dropdown Menu
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="control-sidebar" href="#"><i class="fas fa-th-large"></i></a>
+                    </li>
+                </ul>-->
+            </div>
+        </nav>
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <div class="content">
+                <div class="container">
+                    @RenderBody()
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <div class="container">
+                <h6>FOOTER</h6>
+            </div>
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+</body>
+</html>

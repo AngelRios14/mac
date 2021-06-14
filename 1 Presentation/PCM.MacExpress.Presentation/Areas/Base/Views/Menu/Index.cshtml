@@ -1,0 +1,70 @@
+﻿@model IEnumerable<PCM.MacExpress.Presentation.Core.ViewModel.NavbarModels>
+<div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav col-sm-12">
+        @foreach (var item in Model)
+        {
+            if (item.isParent == false && item.parentId == 0)
+            {
+                @*<li><a href="@Url.Action(item.action, item.nameOption)"><i class="@item.imageClass"></i><span>@item.nameOption</span></a></li>*@
+                <li class="nav-item">
+                    <a class="activo" style="border-right: 0!important;" href="@Url.Action(item.action, item.nameOption)" aria-expanded="false">
+                        <i class="@item.imageClass"></i> &nbsp;@item.nameOption &nbsp;
+                    </a>
+                </li>
+            }
+            else
+            {
+                if (item.isParent == true)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle" href="#" id="btnMenu-@item.nameOption" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="@item.imageClass"></i> &nbsp; @item.nameOption &nbsp;
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="btnMenu-@item.nameOption">
+                            @foreach (var child in Model.Where(p => p.parentId == item.Id))
+                            {
+                            <a class="sub-nav-link" href="@Url.Action(child.action, child.controller, new {area = child.area })">&nbsp;@child.nameOption&nbsp;</a>
+                            }
+                            </div>
+                    </li>
+
+                
+                }
+            }
+        }
+    </ul>
+</div>
+
+@*<div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav col-sm-12">
+            <li class="nav-item">
+                <a class="activo" style="border-right: 0!important;" href="@Url.Action("Index","AtenderCiudadano",  new {area ="AtencionCiudadano" })" aria-expanded="false">
+                    <i class="fas fa-clipboard-list"></i> &nbsp;Atenciones &nbsp;
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-list-alt"></i></i> &nbsp;Consultas &nbsp;
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                    <a class="sub-nav-link" href="@Url.Action("Entidad","ReportesAtencion", new {area ="Reportes" })">Atenciones por Entidad</a>
+                    <a class="sub-nav-link" href="@Url.Action("Index","ReportesAtencion", new {area ="Reportes" })">Atenciones por Sede</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index","AdminUsuario",  new {area ="Configuracion" })" id="" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-userx"></i> &nbsp;Usuarios &nbsp;
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-cog"></i></i> &nbsp;Configuración &nbsp;
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="sub-nav-link" href="@Url.Action( "Index","AdminEntidad", new {area ="Configuracion" })">Entidades</a>
+                    <a class="sub-nav-link" href="@Url.Action( "Index","AdminSede", new {area ="Configuracion" })">Sedes</a>
+                    <a class="sub-nav-link" href="@Url.Action( "Index","AdminServicio", new {area ="Configuracion" })">Servicios</a>
+                </div>
+            </li>
+        </ul>
+    </div>*@

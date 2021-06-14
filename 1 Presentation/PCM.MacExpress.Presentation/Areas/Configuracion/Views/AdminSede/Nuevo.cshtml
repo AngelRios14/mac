@@ -1,0 +1,76 @@
+@model PCM.MacExpress.Presentation.Core.ViewModel.SedeModels
+
+@Html.AntiForgeryToken()
+<form id="modalSede" action="@Url.Action("nuevaSede", "AdminSede", new {area = "Configuracion"})" method="post">
+    <div class="form-horizontal">
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.ID_ENTIDAD, new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ID_ENTIDAD, ViewBag.LST_ENTIDAD_SEDE as SelectList, "SELECCIONE", new { @class = "form-control", id = "ID_ENTIDAD_SEDE_NUEVO" })
+            </div>
+            @*<div class="col-md-1"></div>*@
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.NOMBRE, new { @class = "control-label" })
+                @Html.HiddenFor(m => m.ID_SEDE, new { id = "ID_SEDE_NUEVO" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.NOMBRE, new { @class = "form-control input-sms validate[required]", id = "NOMBRE_NUEVO", data_val = "true", data_val_required = "El campo es obligatorio" })
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.DEPARTAMENTO, new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.DEPARTAMENTO, ViewBag.LST_DEPARTAMENTO_ENTIDAD as SelectList, "Seleccione", new { @class = "form-control", id = "DEPARTAMENTO_NUEVO", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.PROVINCIA, new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.PROVINCIA, ViewBag.LST_PROVINCIA_ENTIDAD as SelectList, "Seleccione", new { @class = "form-control", id = "PROVINCIA_NUEVO", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.DISTRITO, new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.DISTRITO, ViewBag.LST_DISTRITO_ENTIDAD as SelectList, "Seleccione", new { @class = "form-control", id = "DISTRITO_NUEVO", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group mb-0">
+                <div class="col-md-12 text-center">
+                    <span class="input-group-btn">
+                        <a id="btnGuardarSede" class="btn btn-sucess btn-sm"
+                           @*href="@Url.Action("Index", "AdminSede", new { area = "Configuracion", wpv = "1"})" *@
+                           title="Guardar Sede">
+                            <i class="glyphicon glyphicon-floppy-disk"></i> Guardar
+                        </a>
+                        <input type="text" aria-label="" style="border: 0; margin: 5px;">
+                        <a id="btnRegresarSede" class="btn btn-gris btn-sm"
+                           href="@Url.Action("Index", "AdminSede", new { area = "Configuracion", wpv = "2"})"
+                           title="Cancelar y volver a la pantalla anterior">
+                            <span class="glyphicon glyphicon-log-out"></span> Regresar
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@using (Html.BeginForm("Index", "AdminSede", new { area = "Configuracion" }, FormMethod.Post, new { id = "FormularioGuardarSede" })) { }
+
+<script src="~/Scripts/Negocio/utilitario.js"></script>
+<script src="~/Scripts/jquery.validationEngine.js"></script>
+<script src="~/Scripts/jquery.validationEngine-en.js"></script>
+<link href="~/Content/validationEngine.jquery.css" rel="stylesheet" />
+<script src="~/Scripts/Negocio/AdminSede.js"></script>

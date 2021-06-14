@@ -1,0 +1,91 @@
+﻿
+<form id="formServicio" action="@Url.Action("CambiarClave", "AdminUsuario", new {area = "Configuracion"})" method="post">
+    <!-- Modal body -->
+    <div class="modal-body p-md-4">
+        <div class="formOlvidoClave">
+            <div class="form-row">
+                <div class="col-md-12" id="panelClave">
+                    <div class="input-group mb-2">
+                        <span class="input-group-addon"><i class="fas fa-lock"></i></span>
+                        <input type="password" id="txtcontrasenaActual" class="form-control  input-md validate[required]" placeholder="Ingrese su contraseña actual" , data-val="true" , data-val-required="El campo es obligatorio">
+                    </div>
+                    <div class="input-group mb-2">
+                        <span class="input-group-addon"><i class="fas fa-lock"></i></span>
+                        <input type="password" id="txtcontrasenaNueva" class="form-control  input-md validate[required]" placeholder="Registre nueva contraseña" , data-val="true" , data-val-required="El campo es obligatorio">
+                    </div>
+                    <div class="input-group mb-2">
+                        <span class="input-group-addon"><i class="fas fa-lock"></i></span>
+                        <input type="password" id="txtcontrasenaNuevaRepetir" class="form-control input-md validate[required]" placeholder="Repetir nueva contraseña" , data-val="true" , data-val-required="El campo es obligatorio">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal footer -->
+    <div class="modal-footer">
+        <a href="#"><button type="button" id="btnCambiar" class="btn btn-gris">Cambiar</button></a>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+    </div>
+</form>
+
+<link href="~/Content/Menu/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/validationEngine.jquery.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery.validationEngine.js"></script>
+<script src="~/Scripts/jquery.validationEngine-en.js"></script>
+<script src="~/Scripts/Negocio/utilitario.js"></script>
+<script src="~/Scripts/Table/bootbox.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#formServicio").validationEngine();
+        $('#txtcontrasenaActual').focus();
+    });
+
+    $('#btnCambiar').click(function () {
+        if ($("#formServicio").validar()) {
+            debugger;
+            if ($('#txtcontrasenaNueva').val() === $('#txtcontrasenaNuevaRepetir').val()) {
+
+                var OBJ = new Object();
+                OBJ.contrasenaActual = $('#txtcontrasenaActual').val();
+                OBJ.contrasenaNueva = $('#txtcontrasenaNueva').val();
+                OBJ.contrasenaNuevaRepetir = $('#txtcontrasenaNuevaRepetir').val();
+
+                $.ajax({
+                    url: '/Configuracion/AdminUsuario/CambiarContrasena',
+                    data: { models: OBJ },
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (data) {
+                        if (data != null)
+                            if (data.IsSuccess) {
+                                bootbox.alert(data.Message, function () {
+                                    $('#formServicio').closest(".modal").eq(0).modal('hide');
+                                });
+                            }
+                            else 
+                                bootbox.alert(data.Message);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThronw) {
+                        alert(textStatus);
+                    },
+                    failure: function (XMLHttpRequest, textStatus, errorThronw) {
+                        alert(textStatus);
+                    }
+                });
+
+
+            } else {
+
+                bootbox.alert('Los campos de contraseña nueva no son iguales', function () {
+                    $('#txtcontrasenaNueva').select().focus()
+                });
+            }
+        }
+        else
+            $('#formServicio').submit();
+
+    });
+
+</script>

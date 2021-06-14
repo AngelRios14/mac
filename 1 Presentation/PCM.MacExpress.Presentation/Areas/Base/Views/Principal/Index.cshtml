@@ -1,0 +1,24 @@
+﻿@using PCM.MacExpress.Presentation.Resource.Base;
+@using PCM.MacExpress.Presentation.Core.Helpers;
+@using PCM.MacExpress.Presentation.Core.Session;
+@{
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+    ViewBag.Title = ".::" + @PrincipalResourceIndex.EtiquetaTituloSistema + "::.";
+    var cuenta = HttpSessionContext.CurrentAccount();
+
+}
+<!-- wrapper_portal -->
+<div class="content-body">
+    <div class="breadcrumbs">
+        <h2>Bienvenido al @PrincipalResourceIndex.EtiquetaTituloSistema</h2>
+    </div>
+
+    <!-- wrapper -->
+     
+    <!-- cierra wrapper -->
+    <div class="breadcrumbs">
+
+        <p>@Html.Raw(PrincipalResourceIndex.DescripcionSistema.Replace("@usuario", (cuenta !=null ? cuenta.NombreCompleto:"")))</p>
+    </div>
+</div>
+

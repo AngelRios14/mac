@@ -1,0 +1,162 @@
+@model PCM.MacExpress.Presentation.Core.ViewModel.ServicioModels
+
+@Html.AntiForgeryToken()
+<form id="modalServicio" action="@Url.Action("nuevaServicio", "AdminServicio", new {area = "Configuracion"})" method="post">
+    <div class="form-horizontal">
+
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.NOMBRE, new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.NOMBRE, new { @class = "form-control input-sm validate[required]", id = "NOMBRE_NUEVO", data_val = "true" })
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.ID_ENTIDAD, new { @class = "control-label" })
+            </div>
+            <div class="col-md-5">
+                @Html.DropDownListFor(m => m.ID_ENTIDAD, ViewBag.LST_ENTIDAD_SERVICIO as SelectList, "SELECCIONAR", new { @class = "form-control validate[required]", id = "ID_ENTIDAD_NUEVO" })
+            </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.TIPOSERVICIO, new { @class = "control-label" })
+                @Html.HiddenFor(m => m.ID_SERVICIO, new { id = "ID_SERVICIO_NUEVO" })
+            </div>
+            <div class="col-md-3">
+                @Html.DropDownListFor(m => m.TIPOSERVICIO, ViewBag.LST_TIPOSERVICIO_SERVICIO as SelectList, "SELECCIONE", new { @class = "form-control validate[required]", id = "ID_TIPOSERVICIO_NUEVO", data_val = "true", })
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.TIPOACCESO, new { @class = "control-label" })
+                @Html.HiddenFor(m => m.TIPOACCESO, new { id = "ID_TIPOACCESO_NUEVO" })
+            </div>
+            <div class="col-md-5">
+                <label class="radio-inline"><input type="radio" id="rdTIPOACCESO_NUEVO_1" name="rdTIPOACCESO_NUEVO" value="1" /> Todos</label>
+                <label class="radio-inline"><input type="radio" id="rdTIPOACCESO_NUEVO_2" name="rdTIPOACCESO_NUEVO" value="2" /> Propio</label>
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.ORDEN, new { @class = "control-label" })
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.ORDEN, new { @class = "form-control input-sm validate[required]", id = "ORDEN_NUEVO", data_val = "true", maxlength = "5" })
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.MODOSERVICIO, new { @class = "control-label" })
+                @Html.HiddenFor(m => m.MODOSERVICIO, new { id = "ID_MODOSERVICIO_NUEVO" })
+            </div>
+            <div class="col-md-5">
+                <div>
+                    <label class="radio-inline"><input type="radio" id="rdMODOSERVICIO_NUEVO_1" name="rdMODOSERVICIO_NUEVO" value="1" /> Pagina Web</label><br />
+                    <label class="radio-inline"><input type="radio" id="rdMODOSERVICIO_NUEVO_2" name="rdMODOSERVICIO_NUEVO" value="2" /> Servicio Web</label><br />
+                    <label class="radio-inline"><input type="radio" id="rdMODOSERVICIO_NUEVO_3" name="rdMODOSERVICIO_NUEVO" value="3" /> Enlace Externo</label>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.ESTADO_VIGENCIA, new { @class = "control-label" })
+                @Html.HiddenFor(m => m.ESTADO_VIGENCIA, new { id = "ESTADO_VIGENCIA_NUEVO" })
+            </div>
+            <div class="col-md-3">
+                <div>
+                    <label class="radio-inline"><input type="radio" id="rdESTADO_NUEVO_1" name="rdESTADO_NUEVO" value="1" /> Activo</label>
+                    <label class="radio-inline"><input type="radio" id="rdESTADO_NUEVO_0" name="rdESTADO_NUEVO" value="2" /> Desactivo</label>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                <label class="control-label" for="chboxDNI">DNI:</label>
+            </div>
+            <div class="col-md-5">
+                <label><input type="checkbox" id="chboxDNI" name="chboxDNI"   /> Agregar DNI al URL</label>
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.LINK, new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.LINK, new { @class = "form-control input-sm validate[required]", id = "LINK_NUEVO", data_val = "true", placeholder = "URL Página web" })
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <span class="input-group-btn">
+                        <a id="btnGuardarServicio" class="btn btn-sucess btn-sm"
+                           @*href="@Url.Action("Index", "AdminServicio", new { area = "Configuracion", wpv = "1"})" *@
+                           title="Guardar Servicio">
+                            <i class="glyphicon glyphicon-floppy-disk"></i> Guardar
+                        </a>
+                        <input type="text" aria-label="" style="border: 0; margin: 5px;">
+                        <a id="btnRegresarServicio" class="btn btn-gris btn-sm"
+                           href="@Url.Action("Index", "AdminServicio", new { area = "Configuracion", wpv = "2"})"
+                           title="Cancelar y volver a la pantalla anterior">
+                            <span class="glyphicon glyphicon-log-out"></span> Regresar
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@using (Html.BeginForm("Index", "AdminServicio", new { area = "Configuracion" }, FormMethod.Post, new { id = "FormularioGuardarServicio" })) { }
+
+<script src="~/Scripts/Negocio/utilitario.js"></script>
+<script src="~/Scripts/jquery.validationEngine.js"></script>
+<script src="~/Scripts/jquery.validationEngine-en.js"></script>
+<link href="~/Content/validationEngine.jquery.css" rel="stylesheet" />
+<script src="~/Scripts/Negocio/AdminServicio.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        if ('@Model.TIPOACCESO' == '0' || '@Model.TIPOACCESO' == '1') {
+            $("#rdTIPOACCESO_NUEVO_1").prop('checked', true);
+            $('#ID_TIPOACCESO_NUEVO').val('1');
+        }
+        else if ('@Model.TIPOACCESO' == '2') {
+            $("#rdTIPOACCESO_NUEVO_2").prop('checked', true);
+            $('#ID_TIPOACCESO_NUEVO').val('2');
+        }
+
+        if ('@Model.MODOSERVICIO' == '0' || '@Model.MODOSERVICIO' == '1') {
+            $("#rdMODOSERVICIO_NUEVO_1").prop('checked', true);
+            $('#ID_MODOSERVICIO_NUEVO').val('1');
+        }
+        else if ('@Model.MODOSERVICIO' == '2') {
+            $("#rdMODOSERVICIO_NUEVO_2").prop('checked', true);
+            $('#ID_MODOSERVICIO_NUEVO').val('2');
+        }
+          else if ('@Model.MODOSERVICIO' == '3') {
+            $("#rdMODOSERVICIO_NUEVO_3").prop('checked', true);
+            $('#ID_MODOSERVICIO_NUEVO').val('3');
+        }
+        
+
+        if ('@Model.ESTADO_VIGENCIA' == '0' || '@Model.ESTADO_VIGENCIA' == '1') {
+            $("#rdESTADO_NUEVO_1").prop('checked', true);
+            $('#ESTADO_VIGENCIA_NUEVO').val('1');
+        }
+        else if ('@Model.ESTADO_VIGENCIA' == '2')
+            $("#rdESTADO_NUEVO_0").prop('checked', true);
+
+        if ('@Model.DNI_URL' == '1') {
+            $("#chboxDNI").prop('checked', true);           
+        }
+        else {
+            $("#chboxDNI").prop('checked', false);
+        }
+
+    });
+
+</script>

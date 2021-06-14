@@ -1,0 +1,72 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAC EXPRESS | Inicio</title>
+    <link rel="stylesheet" href="~/Content/fontawesome-all.min.css">
+
+    <!-- Theme style -->
+    @*<link rel="stylesheet" href="~/Content/bootstrap4.min.css">*@
+    <link rel="stylesheet" href="~/Content/libro-reclamaciones.css">
+    <link rel="stylesheet" href="~/Content/fuentes/fuentes-personalizadas.css" />
+
+    <link href="~/Content/Menu/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Menu/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/Menu/bower_components/Ionicons/css/ionicons.min.css" rel="stylesheet" />
+    <link href="~/Content/Menu/dist/css/AdminLTE.css" rel="stylesheet" />
+    <link href="~/Content/Menu/dist/css/skins/skin-blue.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table.1.10.min.css" rel="stylesheet" />
+    <link href="~/Content/validationEngine.jquery.css" rel="stylesheet" />
+
+    <script src="~/Scripts/Menu/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="~/Scripts/Menu/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Menu/bower_components/jquery/dist/bootstrap-dialog.min.js"></script>
+    <script src="~/Scripts/Menu/dist/js/adminlte.min.js"></script>
+    <script src="~/Scripts/Table/bootbox.min.js"></script>
+
+    <!-- Google Font: Source Sans Pro -->
+    @*<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">*@
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini" style="border-top-width: 0px;">
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+
+</body>
+</html>

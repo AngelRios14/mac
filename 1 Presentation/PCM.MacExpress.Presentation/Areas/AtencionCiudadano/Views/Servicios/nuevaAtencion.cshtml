@@ -1,0 +1,108 @@
+﻿@model PCM.MacExpress.Presentation.Core.ViewModel.AtencionModels
+
+@Html.AntiForgeryToken()
+    <form id="modalNuevaAtencion" action="@Url.Action("nuevaAtencion", "Servicios", new {area = "AtencionCiudadano" })" method="post">
+        <input id="hddWPVNA" name="hddWPV" type="hidden" value="0">
+
+        @*<div class="form-horizontal">
+            <div class="form-group" style="margin:0 !important;">
+                <div class="col-lg-12 text-center" style="padding: 0px;">
+                    <nav class="navbar navbar-expand navbar-light " style="margin: 0px; background-color:#BF0909;">
+                        <div class="form-group" style="width:100%;">
+
+                            <div class="col-lg-4" style="height:50px; padding-top:7px; margin-left:15px;">
+                                <img src="~/Content/svg/escudo-svg.svg" class="logo__escudo" alt="Escudo Peruano" style="float:left; margin-right:7px;">
+                                <img src="~/Content/svg/logo-gobpe.svg" class="logo__gobpe" alt="gob.pe" style="float:left; padding-top:12px; ">
+                                <div style="float:left;  color:white; border-left:1px solid; margin:5px 10px 10px 15px;padding:0px 0px 0px 15px; height:95%;">
+                                    Mejor Atención al Cuidadano<br />MAC EXPRESS
+                                </div>
+                            </div>
+                            <div style="color: white; text-align:left; font-weight:unset !important; font-size:10pt; padding:0px 0px 0px 15px; " class="col-lg-5">
+                                @{
+                                    Model.SERVICIO = System.Web.HttpUtility.HtmlDecode(Model.SERVICIO);
+                                }
+
+                                <label id="NUEVAATENCION_SERVICIO">@System.Web.HttpUtility.HtmlDecode(Model.SERVICIO)</label>
+                                <br />
+                                @Html.LabelFor(m => m.DNI_CO, new { @class = "control-label", @style = "text-align:left !important;", id = "NUEVAATENCION_DNI_CO" }) &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
+                                @Html.LabelFor(m => m.NOMBRE_CO, new { @class = "control-label", @style = "text-align:left !important;", id = "NUEVAATENCION_NOMBRE_CO" }) &nbsp;
+                                @Html.LabelFor(m => m.DNI, new { @class = "control-label", @style = "display:none;", id = "NUEVAATENCION_DNI" })
+                                @Html.LabelFor(m => m.NOMBRE, new { @class = "control-label", @style = "display:none;", id = "NUEVAATENCION_NOMBRE" })
+                                @Html.LabelFor(m => m.APELLIDO_PATERNO, new { @class = "control-label", id = "NUEVAATENCION_APELLIDO_PATERNO", style = "display:none;" })
+                                @Html.LabelFor(m => m.APELLIDO_MATERNO, new { @class = "control-label", id = "NUEVAATENCION_APELLIDO_MATERNO", style = "display:none;" })
+
+                            </div>
+                            <div class="col-12 col-lg-2 " style="padding-top:20px; float:left;">
+                                <button id="btnCerrarTramite" type="button" class="btn btn-gris"><span class="glyphicon glyphicon-log-out"></span>  Cerrar Trámite</button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>*@
+
+        <div style="float:left; text-align:left; background-color:#BF0909; width:100%;" >
+
+            <div style=" padding-top:7px; padding-left:50px;">
+                <img src="~/Content/svg/escudo-svg.svg" alt="Escudo Peruano" style="float:left; margin-right:7px; width: 2.8em !important;">
+                <img src="~/Content/svg/logo-gobpe.svg" alt="gob.pe" style="float:left; padding-top:12px; margin-left: .2em;  width: 6.0em !important; ">
+                <div class="texto-logo" style="float:left; color:white; border-left:1px solid; margin:5px 10px 10px 15px;padding:0px 0px 0px 15px; height:95%;">
+                    Mejor Atención al Cuidadano<br />MAC EXPRESS
+                </div>
+
+                <div style="float:left; color: white; border-left:1px solid; margin:5px 10px 10px 15px; padding:0px 0px 0px 15px; height:95%; line-height:20px;">
+                    @{
+                        Model.SERVICIO = System.Web.HttpUtility.HtmlDecode(Model.SERVICIO);
+                    }
+
+                    <label id="NUEVAATENCION_SERVICIO">@System.Web.HttpUtility.HtmlDecode(Model.SERVICIO)</label></br>
+                    @Html.LabelFor(m => m.DNI_CO, new { @class = "control-label", @style = "text-align:left !important;", id = "NUEVAATENCION_DNI_CO" }) &nbsp;&nbsp;-&nbsp;&nbsp;
+                    @Html.LabelFor(m => m.NOMBRE_CO, new { @class = "control-label", @style = "text-align:left !important;", id = "NUEVAATENCION_NOMBRE_CO" }) &nbsp;
+                    @Html.LabelFor(m => m.DNI, new { @class = "control-label", @style = "display:none;", id = "NUEVAATENCION_DNI" })
+                    @Html.LabelFor(m => m.NOMBRE, new { @class = "control-label", @style = "display:none;", id = "NUEVAATENCION_NOMBRE" })
+                    @Html.LabelFor(m => m.APELLIDO_PATERNO, new { @class = "control-label", id = "NUEVAATENCION_APELLIDO_PATERNO", style = "display:none;" })
+                    @Html.LabelFor(m => m.APELLIDO_MATERNO, new { @class = "control-label", id = "NUEVAATENCION_APELLIDO_MATERNO", style = "display:none;" })
+
+
+                </div>
+                <div style="float:right; color:white; margin:5px 10px 10px 15px; padding:10px 5% 0px 0px; height:95%; line-height:20px;">
+                    <button id="btnCerrarTramite" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-log-out"></span> <span class="text-salir">Cerrar</span><span class="cerrar-tramite">Cerrar Trámite</span></button>
+                </div>
+            </div>
+
+        </div>
+ 
+        <div  id="diviFrame" style="float:left; width: 100%; height: 100%;"></div>
+    </form>
+
+@using (Html.BeginForm("Index", "Servicios", new { area = "AtencionCiudadano" }, FormMethod.Post, new { id = "FormularioNuevaAtencion" })) { }
+
+<script src="~/Scripts/Negocio/AtenderCiudadano.js"></script>
+<link href="~/Content/libro-reclamaciones.css" rel="stylesheet" />
+
+
+<script>
+    $(document).ready(function () {
+  
+        var strServicio = '@Model.SERVICIO';
+        strServicio = strServicio.replace('*', '').replace('*', '').replace('*', '').replace('*', '');
+        
+        $('#hddWPVNA').val('@ViewBag.wpv');
+        //$('#NUEVAATENCION_SERVICIO').text(strServicio);
+
+        //$('#NUEVAATENCION_SERVICIO').text($('#NUEVAATENCION_SERVICIO').val());
+        $('#NUEVAATENCION_DNI_CO').text('@Model.DNI_CO');
+        $('#NUEVAATENCION_NOMBRE_CO').text('@Model.NOMBRE_CO');
+        $('#NUEVAATENCION_DNI').text('@Model.DNI');
+        $('#NUEVAATENCION_NOMBRE').text('@Model.NOMBRE');
+        $('#NUEVAATENCION_APELLIDO_PATERNO').text('@Model.APELLIDO_PATERNO');
+        $('#NUEVAATENCION_APELLIDO_MATERNO').text('@Model.APELLIDO_MATERNO');
+        $('#diviFrame').append(`<iframe id="myframe" src="` + '@Model.LINK' + `" style="width: 100%; height: 100%;"></iframe>`);
+
+      
+
+
+    });
+
+
+</script>

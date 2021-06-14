@@ -1,0 +1,64 @@
+﻿@model IEnumerable<PCM.MacExpress.Presentation.Core.ViewModel.NavbarModels>
+
+<div class="user-panel" style="margin-top: 55px;">
+    <div class="pull-left image">
+        <img src="~/Images/user2-160x160_1.png" class="img-circle" alt="User Image">
+    </div>
+    <div class="pull-left info">
+        @foreach (var _item in Model)
+        {
+            <p>@_item.nombreUsuario</p>
+            break;
+        }
+        <!-- Status -->
+        <a href="#">
+            <i class="fa fa-circle text-success"></i> En line
+        </a>
+    </div>
+</div>
+
+<ul class="sidebar-menu" data-widget="tree">
+    <li class="header">HEADER</li>
+    <!-- Optionally, you can add icons to the links -->
+
+    @foreach (var item in Model)
+    {
+        if (item.isParent == false && item.parentId == 0)
+        {
+            <li><a href="@Url.Action(item.action, item.nameOption)"><i class="@item.imageClass"></i><span>@item.nameOption</span></a></li>
+        }
+        else
+        {
+            if (item.isParent == true)
+            {
+                <li class="treeview">
+                    @*<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-certificate fa-fw"></i> @item.nameOption <span class="caret"></span></a>*@
+                    <a href="#"><i class="fa fa-link"></i><span>@item.nameOption</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+
+                    <!-- Fin - Iconos personalizados para el menu -->
+
+                    <ul class="treeview-menu">
+                        @foreach (var child in Model.Where(p => p.parentId == item.Id))
+                        {
+                            if (child.controller == null)
+                            {
+                                <li style="width: auto;"><a href="#">@child.nameOption</a></li>
+                            }
+                            else
+                            {
+                                if (child.area == null)
+                                {
+                                    <li style="width: auto;"><a href="@Url.Action(child.action, child.controller )">@child.nameOption</a></li>
+                                }
+                                else
+                                {
+                                    <li style="width: auto;"><a href="@Url.Action(child.action, child.controller, new {area = child.area })">@child.nameOption</a></li>
+                                }
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    }
+</ul>

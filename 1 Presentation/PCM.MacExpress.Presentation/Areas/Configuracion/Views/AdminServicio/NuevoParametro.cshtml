@@ -1,0 +1,108 @@
+﻿@model PCM.MacExpress.Presentation.Core.ViewModel.ParametroModels
+
+@Html.AntiForgeryToken()
+<form id="modalParametro" action="@Url.Action("nuevaParametro", "AdminServicio", new {area = "Configuracion"})" method="post">
+    <div class="form-horizontal">
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.OPERACION, new { @class = "control-label" })
+                @Html.HiddenFor(m => m.ID_PARAMETRO, new { id = "ID_PARAMETRO_NUEVO" })
+                @Html.HiddenFor(m => m.ID_OPERACION, new { @class = "control-label", id = "ID_OPERACION_PARAMETRO_NUEVO" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.OPERACION, new { @class = "form-control input-sm", data_val = "true", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.PARAMETRO, new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.PARAMETRO, new { @class = "form-control input-sm validate[required]", id = "PARAMETRO_NUEVO", data_val = "true", maxlength = "200" })
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.ID_OBLIGATORIO, new { @class = "control-label" })
+                @Html.HiddenFor(m => m.ID_OBLIGATORIO, new { id = "ID_OBLIGATORIO_NUEVO" })
+            </div>
+            <div class="col-md-10">
+                <div>
+                    <label class="radio-inline"><input type="radio" id="rdES_OBLIGATORIO_NUEVO_1" name="rdES_OBLIGATORIO_NUEVO" value="1" /> SI</label>
+                    <label class="radio-inline"><input type="radio" id="rdES_OBLIGATORIO_NUEVO_2" name="rdES_OBLIGATORIO_NUEVO" value="2" /> NO</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.ID_TIPO_PARAMETRO, new { @class = "control-label" })
+                @Html.HiddenFor(m => m.ID_TIPO_PARAMETRO, new { id = "ID_TIPO_PARAMETRO_NUEVO" })
+            </div>
+            <div class="col-md-10">
+                <div>
+                    <label class="radio-inline"><input type="radio" id="rdTIPO_PARAMETRO_NUEVO_1" name="rdTIPO_PARAMETRO_NUEVO" value="1" /> Entrada</label>
+                    <label class="radio-inline"><input type="radio" id="rdTIPO_PARAMETRO_NUEVO_2" name="rdTIPO_PARAMETRO_NUEVO" value="2" /> Salida</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <div class="col-md-2">
+                @Html.LabelFor(m => m.COMENTARIO, new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.COMENTARIO, new { @class = "form-control input-sm validate[required]", id = "COMENTARIO_NUEVO", data_val = "true", maxlength = "400" })
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <span class="input-group-btn">
+                        <a id="btnGuardarParametro" class="btn btn-gris btn-sm"
+                           @*href="@Url.Action("Index", "AdminServicio", new { area = "Configuracion", wpv = "1"})" *@
+                           title="Guardar Parametro">
+                            <i class="glyphicon glyphicon-floppy-disk"></i> Guardar
+                        </a>
+                        <input type="text" aria-label="" style="border: 0; margin: 5px;">
+                        <a id="btnRegresarParametro" class="btn btn-gris btn-sm"
+                           href="@Url.Action("Index", "AdminServicio", new { area = "Configuracion", wpv = "2"})"
+                           title="Cancelar y volver a la pantalla anterior">
+                            <span class="glyphicon glyphicon-log-out"></span> Regresar
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@using (Html.BeginForm("Index", "AdminServicio", new { area = "Configuracion" }, FormMethod.Post, new { id = "FormularioGuardarParametro" })) { }
+
+<script src="~/Scripts/Negocio/utilitario.js"></script>
+<script src="~/Scripts/jquery.validationEngine.js"></script>
+<script src="~/Scripts/jquery.validationEngine-en.js"></script>
+<link href="~/Content/validationEngine.jquery.css" rel="stylesheet" />
+<script src="~/Scripts/Negocio/AdminServicio.js"></script>
+
+<script>
+    $(document).ready(function () {
+        if ('@Model.ID_OBLIGATORIO' == '0' || '@Model.ID_OBLIGATORIO' == '1') {
+            $('#rdES_OBLIGATORIO_NUEVO_1').prop('checked', true);
+            $('#ID_OBLIGATORIO_NUEVO').val('1');
+        }
+        else if ('@Model.ID_OBLIGATORIO' == '2') {
+            $('#rdES_OBLIGATORIO_NUEVO_2').prop('checked', true);
+            $('#ID_OBLIGATORIO_NUEVO').val('2');
+        }
+
+        if ('@Model.ID_TIPO_PARAMETRO' == '0' || '@Model.ID_TIPO_PARAMETRO' == '1') {
+            $('#rdTIPO_PARAMETRO_NUEVO_1').prop('checked', true);
+            $('#ID_TIPO_PARAMETRO_NUEVO').val('1');
+        }
+        else if ('@Model.ID_TIPO_PARAMETRO' == '2') {
+            $('#rdTIPO_PARAMETRO_NUEVO_2').prop('checked', true);
+            $('#ID_TIPO_PARAMETRO_NUEVO').val('2');
+        }
+    });
+
+
+</script>
